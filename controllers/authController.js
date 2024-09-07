@@ -4,7 +4,7 @@ import { createError } from '../utills/error.js';
 import jwt from 'jsonwebtoken';
 
 export const register = async (req, res, next) => {
-    const { fullName, email, password } = req.body;
+    const { fullName, email, password, avatar } = req.body;
     const user = await User.findOne({ email: req.body.email });
     // if (user) return next(createError(404, "User already exists with the same email!"));
     if (user) return res.status(200).json({
@@ -19,6 +19,7 @@ export const register = async (req, res, next) => {
             fullName: fullName,
             email: email,
             password: hash,
+            avatar: avatar
         })
 
         await newUser.save();
